@@ -1,4 +1,3 @@
-
 public class Polynomial {
     private double[] coefficients;
 
@@ -23,11 +22,11 @@ public class Polynomial {
 
     public double getCoefficents(int d) {
 
-        return coefficients[d];
+        return this.coefficients[d];
     }
     public int getDegree(){
 
-        return coefficients.length-1;
+        return this.coefficients.length-1;
     }
  // Method to convert polynomial to string
     @Override
