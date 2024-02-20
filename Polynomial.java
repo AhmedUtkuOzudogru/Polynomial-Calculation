@@ -37,7 +37,10 @@ public class Polynomial {
                 if (result.length() > 0) {
                     result.append(" ");
                     if (coefficients[i] > 0)
+                    {
                         result.append("+ ");
+                    }
+
                 }
                 result.append(coefficients[i]);
                 if (i > 0)

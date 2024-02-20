@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class PolynomialTester {
  public static void main(String[] args) {
    ArrayList<Polynomial> pols=new ArrayList<Polynomial>();
-   double[] array={1,2,3,4,5,6,7,8,9};
+   double[] array={1,-2,-3,4,5,6,7,8,9};
     Polynomial pol1 = new Polynomial();
     Polynomial pol2 = new Polynomial(5,5);
     Polynomial pol3 = new Polynomial(array);
