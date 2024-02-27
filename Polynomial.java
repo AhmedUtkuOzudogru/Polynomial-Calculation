@@ -108,4 +108,41 @@ public class Polynomial {
     
         return new Polynomial(resultCoefficients);
     }
+    public Polynomial compose(Polynomial p2) {
+        int resultDegree = this.getDegree() * p2.getDegree();
+        double[] resultCoefficients = new double[resultDegree + 1];
+    
+        for (int i = 0; i <= this.getDegree(); i++) {
+            double coeff = this.getCoefficents(i);
+            Polynomial temp = new Polynomial(i, coeff); // Create polynomial c*x^i
+            for (int j = 0; j <= p2.getDegree(); j++) {
+                double p2Coeff = p2.getCoefficents(j);
+                temp = temp.mul(p2); // Multiply by p2
+                temp = temp.mul(new Polynomial(new double[]{p2Coeff, 0})); // Multiply by p2Coeff*x^0
+            }
+            // Add temp's coefficients to resultCoefficients
+            int len = Math.max(resultCoefficients.length, temp.coefficients.length);
+            double[] newResultCoefficients = new double[len];
+            for (int k = 0; k < len; k++) {
+                double val1;
+                if (k < resultCoefficients.length) {
+                    val1 = resultCoefficients[k];
+                } else {
+                    val1 = 0;
+                }
+                
+                double val2;
+                if (k < temp.coefficients.length) {
+                    val2 = temp.coefficients[k];
+                } else {
+                    val2 = 0;
+                }
+                
+                newResultCoefficients[k] = val1 + val2;
+            }
+            resultCoefficients = newResultCoefficients;
+        }
+    
+        return new Polynomial(resultCoefficients);
+    }
 }
