@@ -20,6 +20,17 @@ public class PolynomialTester {
       System.out.println("***********************************");
 
    }
-    
+   double[] array2={3,4,1};
+   double[] array3={2,1};
+
+   Polynomial pol4 = new Polynomial(array2);
+   Polynomial pol5 = new Polynomial(array3);
+   System.out.println(pol4.add(pol5));
+   System.out.println(pol4.sub(pol5));
+   System.out.println(pol4.mul(pol5));
+   System.out.println(pol4.compose(pol5));
+
+
+  
  }    
 }
