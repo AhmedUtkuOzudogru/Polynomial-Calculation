@@ -165,5 +165,36 @@ public class Polynomial {
             result = result.mul(this);
         }
         return result;    
-}
+    }
+    public Polynomial div(Polynomial p2) {
+        Polynomial dividend = this;
+        Polynomial divisor = p2;
+    
+        // Initialize quotient and remainder
+        Polynomial quotient = new Polynomial();
+        Polynomial remainder = dividend;
+    
+        // Continue division until the degree of the dividend is higher than or equal to the degree of the divisor
+        while (remainder.getDegree() >= divisor.getDegree()) {
+            // Find the leading terms of the dividend and divisor
+            int dividendDegree = remainder.getDegree();
+            int divisorDegree = divisor.getDegree();
+    
+            // Calculate the quotient of the leading terms
+            double quotientCoefficient = remainder.getCoefficents(dividendDegree) / divisor.getCoefficents(divisorDegree);
+    
+            // Create a polynomial representing the quotient of the leading terms
+            Polynomial term = new Polynomial(dividendDegree - divisorDegree, quotientCoefficient);
+    
+            // Subtract T(x) * Q(x) from P(x) at the appropriate degree
+            remainder = remainder.sub(term.mul(divisor).power(dividendDegree - divisorDegree));
+    
+            // Add the quotient term to the result
+            quotient = quotient.add(term);
+        }
+    
+        return quotient;
+    }
+    
+    
 }
