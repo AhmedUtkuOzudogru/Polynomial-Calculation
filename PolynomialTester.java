@@ -20,7 +20,7 @@ public class PolynomialTester {
       System.out.println("***********************************");
 
    }
-   double[] array2={3,4,1,3,2};
+   double[] array2={3,4,1,3,0,2};
    double[] array3={2,1};
 
    Polynomial pol4 = new Polynomial(array2);

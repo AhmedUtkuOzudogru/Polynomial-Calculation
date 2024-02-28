@@ -1,3 +1,6 @@
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 public class Polynomial {
     private double[] coefficients;
 
@@ -167,34 +170,46 @@ public class Polynomial {
         return result;    
     }
     public Polynomial div(Polynomial p2) {
-        Polynomial dividend = this;
-        Polynomial divisor = p2;
-    
-        // Initialize quotient and remainder
-        Polynomial quotient = new Polynomial();
-        Polynomial remainder = dividend;
-    
-        // Continue division until the degree of the dividend is higher than or equal to the degree of the divisor
-        while (remainder.getDegree() >= divisor.getDegree()) {
-            // Find the leading terms of the dividend and divisor
-            int dividendDegree = remainder.getDegree();
-            int divisorDegree = divisor.getDegree();
-    
-            // Calculate the quotient of the leading terms
-            double quotientCoefficient = remainder.getCoefficents(dividendDegree) / divisor.getCoefficents(divisorDegree);
-    
-            // Create a polynomial representing the quotient of the leading terms
-            Polynomial term = new Polynomial(dividendDegree - divisorDegree, quotientCoefficient);
-    
-            // Subtract T(x) * Q(x) from P(x) at the appropriate degree
-            remainder = remainder.sub(term.mul(divisor).power(dividendDegree - divisorDegree));
-    
-            // Add the quotient term to the result
-            quotient = quotient.add(term);
+        // Initialize quotient and dividend
+        Polynomial divisor = new Polynomial(p2.coefficients); // Make a copy of the current polynomial
+        Polynomial dividend = new Polynomial(this.coefficients); // Make a copy of the current polynomial
+        double[] resCoff = new double[dividend.getDegree() - p2.getDegree() + 1];
+        Polynomial res = new Polynomial(resCoff);
+        
+        System.out.println("Dividend (P(x)): " + dividend);
+        System.out.println("Divisor (Q(x)): " + p2);
+        
+        while (dividend.getDegree() >= divisor.getDegree()) {
+            // Step 1: Find leading terms
+            int leadP = dividend.getDegree();
+            int leadQ = divisor.getDegree();
+            
+            // Step 2: Find T(x)
+            double leadPVal = dividend.getCoefficents(leadP);
+            double leadQVal = divisor.getCoefficents(leadQ);
+            double[] tCoefficients = new double[leadP - leadQ + 1];
+            tCoefficients[leadP - leadQ] = leadPVal / leadQVal;
+            Polynomial t = new Polynomial(tCoefficients);
+
+            
+            System.out.println("Dividend degree: " + dividend.getDegree() + ", Divisor degree: " + divisor.getDegree());
+            System.out.println("T(x): " + t);
+            
+            // Step 3: Subtract T(x) * Q(x) from P(x)
+            Polynomial subtract = p2.mul(t);
+            System.out.println("T(x) * Q(x): " + subtract);
+            dividend = dividend.sub(subtract);
+            System.out.println("After subtraction: " + dividend);
+            
+            // Step 4: Update quotient by adding T(x)
+            res = res.add(t);
+
         }
-    
-        return quotient;
+        
+        return res;
     }
+
+    
     
     
 }
