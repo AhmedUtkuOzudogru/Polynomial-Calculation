@@ -1,4 +1,5 @@
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Polynomial {
@@ -170,7 +171,6 @@ public class Polynomial {
         return result;    
     }
     public Polynomial div(Polynomial p2) {
-        // Initialize quotient and dividend
         Polynomial divisor = new Polynomial(p2.coefficients); // Make a copy of the current polynomial
         Polynomial dividend = new Polynomial(this.coefficients); // Make a copy of the current polynomial
         double[] resCoff = new double[dividend.getDegree() - p2.getDegree() + 1];
@@ -207,6 +207,28 @@ public class Polynomial {
         }
         
         return res;
+    }
+    public int[] findEqual(Polynomial p2) {
+        ArrayList<Integer> solutions = new ArrayList<>();
+
+        for (int x = 1; x <= 200; x++) {
+
+            double eval1 = this.eval(x);
+            double eval2 = p2.eval(x);
+
+            // Check if the evaluations are equal (using some tolerance for double comparison)
+            if (Math.abs(eval1 - eval2) < 1) {
+                solutions.add(x);
+            }
+        }
+
+        // Convert ArrayList to int array
+        int[] result = new int[solutions.size()];
+        for (int i = 0; i < solutions.size(); i++) {
+            result[i] = solutions.get(i);
+        }
+
+        return result;
     }
 
     

@@ -20,7 +20,7 @@ public class PolynomialTester {
       System.out.println("***********************************");
 
    }
-   double[] array2={3,4,1,3,0,2};
+   double[] array2={3,4,1,0,2};
    double[] array3={2,1};
 
    Polynomial pol4 = new Polynomial(array2);
@@ -30,6 +30,9 @@ public class PolynomialTester {
    System.out.println(pol4.mul(pol5));
    System.out.println(pol4.compose(pol5));
    System.out.println(pol4.div(pol5));
+   for(int a=0;a<pol4.findEqual(pol5).length;a++){
+    System.out.println(pol4.findEqual(pol5)[a]);
+   }
 
 
   
